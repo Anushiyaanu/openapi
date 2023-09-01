@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  version: "1.0.6"
+  title: "Trace"
+tags:
+- name: "Trace"
+  description: "Everything about Trace"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+
+schemes:
+- "https"
+- "http"
+paths:
+  /trace:
+    post:
+      tags:
+      - "pet"
+      summary: "Add a new trace to the db"
+      description: ""
+      operationId: "addTrace"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Trace object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Trace"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+        
+  /addTrace:
+    post:
+      tags:
+      - "pet"
+      summary: "Add a new trace to the db"
+      description: ""
+      operationId: "addOneTrace"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Trace object that needs to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Trace"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+        
+        
+
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "https://petstore.swagger.io/oauth/authorize"
+    flow: "implicit"
+    scopes:
+      read:pets: "read your pets"
+      write:pets: "modify pets in your account"
+definitions:
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+  
+  Trace:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      traceId:
+        type: "integer"
+        format: "int64"
+      spanId:
+        type: "integer"
+        format: "int64"
+      parentSpanId:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "doggie"
+    xml:
+      name: "Pet"
+  
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
